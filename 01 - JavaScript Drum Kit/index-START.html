@@ -58,6 +58,35 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  //use data attributes to hook up 'data-key:65' div with the audio, so
+  //when someone hits a key on their keyboard we're going to find the audio element and play it, and we're going to find the div and add a class of 'playing' so it'll animate itself on in 
+  //first thing we need to do is focus on listening for a key up event 
+  //do this by first getting whatever element you're listening for 
+  //add keydown event listener, that's going to run the function which will give us the event 
+  // listening for the keydown event, and when that happens we're going to run this function, which will give us the event  
+  window.addEventListener('keydown', function(e) {
+    // console.log(e.keyCode);
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`)
+      //aconsole.log(audio);
+      if(!audio) return; // stop the function from running all together
+      audio.currentTime = 0; // rewind to the start
+      audio.play();
+key.classList.add('playing');  
+// key.classList.remove('playing');  
+// key.classList.toggle('playing');  
+
+
+});
+
+function removeTransition(e) {
+  if(e.propertyName !== 'transform') return; // skip it if it's not a transform   
+  this.classList.remove('playing');
+}
+
+const keys = document.quertSelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
 
 </script>
 
